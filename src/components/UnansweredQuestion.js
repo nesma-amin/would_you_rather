@@ -70,6 +70,10 @@ class UnansweredQuestion extends Component{
    
       render() {
         const { question, users,authedUser } = this.props
+
+        if (question===undefined) {
+          return <Redirect to= {`/notFound`} />
+        }
         const {
           author, timestamp,optionOne ,optionTwo , id, 
         } = question
@@ -133,8 +137,9 @@ class UnansweredQuestion extends Component{
     function mapStateToProps ( {authedUser,questions,users},props) {
       const { id } = props.match.params
       const question = questions[id]
-      // const parentTweet = tweet ? tweets[tweet.replyingTo] : null
-    const temp_authedUser = 'sarahedo'
+      if (questions[id]===undefined) {
+        return <Redirect to= {`/notFound`} />
+      }
     console.log("id",id)
 
     console.log("questions.optionOneText",question.optionOne.text)

@@ -15,7 +15,7 @@ export default function users(state={}, action){
                 console.log('authedUser ',{ authedUser})
                 console.log('id', {id})
             return{
-                ...state[id],
+                ...state,
             [authedUser]: {
               ...state[authedUser],
               answers: {

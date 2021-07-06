@@ -3,10 +3,6 @@ import { connect } from 'react-redux'
 import { handleAddQuestion } from '../actions/questions'
 
 import { Redirect } from 'react-router-dom'
-import PropTypes from 'prop-types'
-
-
-import {formatQuestion, formatDate} from '../utils/helpers'
 
 class NewQuestion extends Component {
   static propTypes = {
@@ -65,7 +61,6 @@ class NewQuestion extends Component {
     if (toHome === true) {
         return <Redirect to='/' />
       }
-    // const tweetLeft = 280 - text.length
 
     return (
       <div>
@@ -89,11 +84,7 @@ class NewQuestion extends Component {
             maxLength={280}
           />
           </div>
-          {/* {tweetLeft <= 100 && (
-            <div className='tweet-length'>
-              {tweetLeft}
-            </div>
-          )} */}
+         
           <button
             className='btn'
             type='submit'

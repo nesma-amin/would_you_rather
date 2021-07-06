@@ -1,10 +1,13 @@
-import React, {Component} from 'react'
+import React, {Component,  useState } from 'react'
 import {connect} from 'react-redux'
 import Question from './Question'
 import {TabPanel,Tabs, TabList, Tab} from 'react-tabs'
 import 'react-tabs/style/react-tabs.css';
 
 class Dashboard extends Component{
+  state={
+    tabIndex:0
+  }
   answeredQuestionsID=()=>{
     const{authedUser}=this.props
     let answeredIdsArray=[];
@@ -39,19 +42,34 @@ class Dashboard extends Component{
     
     return unansweredIdsArray
   }
+
+
+  setTabIndex=(e)=>{
+    console.log("**********index",e)
+    this.setState({
+      tabIndex: e
+    })
+  }
     render(){
       const answeredIds = this.answeredQuestionsID()
       const unansweredIs = this.unansweredQuestionsID()
+      const className0= (this.state.tabIndex===0)?' .active':'tab'
+      const className1= this.state.tabIndex===1?' .active':'tab'
+
+      // const className1= this.state.tabIndex===1?' tab-list-active':'tab'
+
       const CustomTab =({children})=>(
         <Tab>
-          <h2>{children}</h2>
+          <p>{children}</p>
         </Tab>
       )
       CustomTab.tabsRole='Tab';
       console.log("answeredIds",answeredIds)
       console.log("unansweredIs",unansweredIs)
-
+      // const tabIndex=0
         console.log("Dashboard props",this.props)
+        console.log("**********this.state.tabindex",this.state.tabIndex)
+
         return(
 
 
@@ -59,23 +77,16 @@ class Dashboard extends Component{
           // ************************************************************************************
             <div>
                 <h3 className='center'>Your Timeline</h3>
-                <Tabs>  
-                    <TabList>
-                      <CustomTab>Answered Question</CustomTab>
-                      <CustomTab>Unanswered Question</CustomTab>
+                <Tabs default={1} selectedIndex={this.state.tabIndex}  
+                onSelect= {index=>this.setTabIndex(index)}
+                className='.active'
+              > 
+                    <TabList default={1}  >
+                    <CustomTab  default='true' className='.active' >Unanswered Question</CustomTab>
+                      <CustomTab activeClassName={(this.state.tabIndex===0)?{className0}:{className1}}>Answered Question</CustomTab>
                       </TabList>   
                
-              
-                      <TabPanel>
-                      <ul className='answered questions-list'>
-                                    {answeredIds.map((id)=>(
-                                        <li key ={id}>
-                                            <Question id={id}/> 
-                                            </li>
-                                    ))}
-                                </ul>
-                      </TabPanel>
-                      <TabPanel>
+                      <TabPanel >
                       <ul className='unanswered questions-list'>
                                     {unansweredIs.map((id)=>(
                                         <li key ={id}>
@@ -84,14 +95,18 @@ class Dashboard extends Component{
                                     ))}
                                 </ul>
                       </TabPanel>
+                      <TabPanel  selectedIndex={this.state.tabIndex}>
+                      <ul className='answered questions-list'>
+                                    {answeredIds.map((id)=>(
+                                        <li key ={id}>
+                                            <Question id={id}/> 
+                                            </li>
+                                    ))}
+                                </ul>
+                      </TabPanel>
+                      
                 </Tabs>
-                {/* <ul className='dashboard-list'>
-                    {this.props.questionIds.map((id)=>(
-                        <li key ={id}>
-                            <Question id={id}/> 
-                            </li>
-                    ))}
-                </ul>  */}
+               
              </div>
         );
         

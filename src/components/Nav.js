@@ -1,10 +1,5 @@
 import React, { Component} from 'react'
 import { NavLink } from 'react-router-dom'
-import {unsetAuthedUser} from '../actions/authedUser'
-// import authedUser from '../reducer/authedUser'
-// import AuthedUser from './AuthedUser'
-import Login from './Login'
-// import LogOut from './LogOut'
 import {connect} from 'react-redux'
 
 
@@ -34,9 +29,7 @@ class Nav extends Component {
           </li>
         
         <li>
-          <NavLink to='/leaderBoard' activeClassName='active'>
             Logged User is:{authedUser}
-          </NavLink>
           </li>
         <li>
           <NavLink to='/login' activeClassName='active'>
@@ -51,7 +44,7 @@ class Nav extends Component {
 }
 function mapStateToProps( {authedUser} ){
   return { 
-    authedUser:authedUser[0]
+    authedUser:authedUser?authedUser[0]:null
   };
 }
 export default connect(mapStateToProps)(Nav)

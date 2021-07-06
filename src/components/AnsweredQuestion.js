@@ -1,9 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {formatQuestion, formatDate} from '../utils/helpers'
-import { Link, withRouter } from 'react-router-dom'
+import { formatDate} from '../utils/helpers'
 import Progress from 'react-progressbar';
-import { div } from 'prelude-ls';
+import { Redirect } from 'react-router-dom'
 
 
 class AnsweredQuestion extends Component{
@@ -13,6 +12,9 @@ class AnsweredQuestion extends Component{
         console.log("Question Props", question)
         if (question === null) {
           return <p>This Question doesn't existd</p>
+        }
+        if (question===undefined) {
+          return <Redirect to= {`/notFound`} />
         }
         const {author, timestamp,optionOne ,optionTwo , id, } = question
         const loggedUser = authedUser;
@@ -75,6 +77,9 @@ class AnsweredQuestion extends Component{
     function mapStateToProps ( {authedUser,questions,users},props) {
         const { id } = props.match.params
       const question = questions[id]
+      if (questions[id]===undefined) {
+        return <Redirect to= {`/notFound`} />
+      }
     console.log("id",id)
     console.log("questions",questions)
     console.log("users[question.author.name]",question.author)

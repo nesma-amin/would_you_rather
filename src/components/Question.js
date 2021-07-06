@@ -1,9 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {formatQuestion, formatDate} from '../utils/helpers'
-// import { TiArrowBackOutline, TiHeartOutline, TiHeartFullOutline} from 'react-icons/ti/index'
-import AnsweredQuestion from './AnsweredQuestion'
-import UnansweredQuestion from './UnansweredQuestion'
+import {formatDate} from '../utils/helpers'
 import { Link, withRouter } from 'react-router-dom'
 
 class Question extends Component{
@@ -77,7 +74,7 @@ class Question extends Component{
     console.log("questions.optionTwoText",question.optionTwo.text)
     console.log("users[question.author.name]",question.author)
       return {
-        authedUser:authedUser,
+        authedUser:authedUser[0],
         userIds: Object.keys(users) ,
         users,
         question: questions[id]
