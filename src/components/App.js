@@ -59,4 +59,4 @@ function mapStateToProps( {authedUser} ){
       loading: authedUser === null 
   };
 }
-export default withRouter(connect(mapStateToProps)(App))
+export default connect(mapStateToProps)(App)
