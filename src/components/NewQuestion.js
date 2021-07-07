@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { handleAddQuestion } from '../actions/questions'
-
+import { withRouter } from 'react-router-dom'
 import { Redirect } from 'react-router-dom'
 
 class NewQuestion extends Component {
@@ -36,17 +36,6 @@ class NewQuestion extends Component {
     const { optionOne, optionTwo } = this.state
     const { dispatch, id, authedUser} = this.props
 
-    // todo: Add Question to Store
-
-    console.log('Option one: ', optionOne)
-    console.log('Option Two: ', optionTwo)
-    // const question = formatQuestion(optionOne, optionTwo, authedUser)
-
-    console.log('Option one: ', this.state.optionOne)
-    console.log('Option Two: ', this.state.optionTwo)
-    console.log('user: ', authedUser)
-
-    // dispatch(handleAddQuestion(question))
     dispatch(handleAddQuestion(optionOne,optionTwo,authedUser))
 
     this.setState(() => ({
@@ -106,6 +95,5 @@ return {
   }
 }
 
-export default connect(mapStateToProps)(NewQuestion)
+export default withRouter(connect(mapStateToProps)(NewQuestion))
 
-// export default connect()(NewQuestion) 

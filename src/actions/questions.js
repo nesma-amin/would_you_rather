@@ -17,11 +17,7 @@ export function addQuestion (question) {
 
 export function handleAddQuestion (optionOne, OptionTwo, authedUser) {
   return (dispatch, getState) => {
-    console.log("***authedUser",authedUser)
     dispatch(showLoading())
-    console.log("optionOneText",optionOne)
-    console.log("optionTwoText",OptionTwo)
-    console.log("author",authedUser)
     return saveQuestion({
       optionOneText:optionOne,
       optionTwoText:OptionTwo,

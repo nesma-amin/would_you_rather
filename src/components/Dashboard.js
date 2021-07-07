@@ -1,17 +1,15 @@
-import React, {Component,  useState } from 'react'
+import React, {Component } from 'react'
 import {connect} from 'react-redux'
 import Question from './Question'
 import {TabPanel,Tabs, TabList, Tab} from 'react-tabs'
+import { withRouter } from 'react-router-dom'
 import 'react-tabs/style/react-tabs.css';
 
 class Dashboard extends Component{
-  state={
-    tabIndex:0
-  }
+  
   answeredQuestionsID=()=>{
     const{authedUser}=this.props
     let answeredIdsArray=[];
-    console.log("this.props.questionsIds",this.props.questionIds)
     this.props.questionIds.forEach(element => {
       if((this.props.questions[element].optionOne.votes.includes(authedUser[0]))||
       (this.props.questions[element].optionTwo.votes.includes(authedUser[0])))
@@ -43,47 +41,18 @@ class Dashboard extends Component{
     return unansweredIdsArray
   }
 
-
-  setTabIndex=(e)=>{
-    console.log("**********index",e)
-    this.setState({
-      tabIndex: e
-    })
-  }
     render(){
       const answeredIds = this.answeredQuestionsID()
       const unansweredIs = this.unansweredQuestionsID()
-      const className0= (this.state.tabIndex===0)?' .active':'tab'
-      const className1= this.state.tabIndex===1?' .active':'tab'
-
-      // const className1= this.state.tabIndex===1?' tab-list-active':'tab'
-
-      const CustomTab =({children})=>(
-        <Tab>
-          <p>{children}</p>
-        </Tab>
-      )
-      CustomTab.tabsRole='Tab';
-      console.log("answeredIds",answeredIds)
-      console.log("unansweredIs",unansweredIs)
-      // const tabIndex=0
-        console.log("Dashboard props",this.props)
-        console.log("**********this.state.tabindex",this.state.tabIndex)
 
         return(
-
-
-
-          // ************************************************************************************
             <div>
                 <h3 className='center'>Your Timeline</h3>
-                <Tabs default={1} selectedIndex={this.state.tabIndex}  
-                onSelect= {index=>this.setTabIndex(index)}
-                className='.active'
-              > 
-                    <TabList default={1}  >
-                    <CustomTab  default='true' className='.active' >Unanswered Question</CustomTab>
-                      <CustomTab activeClassName={(this.state.tabIndex===0)?{className0}:{className1}}>Answered Question</CustomTab>
+                <Tabs > 
+                    <TabList >
+
+                      <Tab >Unanswered Question</Tab>
+                      <Tab >Answered Question</Tab>
                       </TabList>   
                
                       <TabPanel >
@@ -95,7 +64,7 @@ class Dashboard extends Component{
                                     ))}
                                 </ul>
                       </TabPanel>
-                      <TabPanel  selectedIndex={this.state.tabIndex}>
+                      <TabPanel >
                       <ul className='answered questions-list'>
                                     {answeredIds.map((id)=>(
                                         <li key ={id}>
@@ -121,4 +90,4 @@ function mapStateToProps( {questions, authedUser} ){
         .sort((a,b)=> questions[b].timestamp - questions[a].timestamp)
     };
   }
-export default connect(mapStateToProps)(Dashboard)
+export default withRouter(connect(mapStateToProps)(Dashboard))

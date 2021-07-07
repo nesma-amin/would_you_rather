@@ -8,12 +8,8 @@ export default function users(state={}, action){
                 ...state,
                 ...action.users
             }
-            break;
             case ADD_USER_ANSWER:
                 const { authedUser, id,answer } = action;
-                console.log('answer ', {answer})
-                console.log('authedUser ',{ authedUser})
-                console.log('id', {id})
             return{
                 ...state,
             [authedUser]: {
@@ -24,11 +20,9 @@ export default function users(state={}, action){
               }
             }
             }
-            break;
 
             case ADD_USER_Question:
                 const author= action.question.author; 
-                console.log('************action.question ', action.question)
 
             return{
 
@@ -39,7 +33,6 @@ export default function users(state={}, action){
                     }
                   
             }
-            break;
         default:
             return state
     }

@@ -1,13 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Question from './Question'
+import { withRouter } from 'react-router-dom'
 
 class QuestionPage extends Component {
   render() {
-    const { id, authedUser,question } = this.props
-    console.log("id",id)
-    console.log("authedUser",authedUser)
-    console.log("questions",question)
+    const { id} = this.props
     return (
       <div>
         <Question id={id} />
@@ -26,4 +24,4 @@ function mapStateToProps ({ authedUser, questions }, props) {
 }
 }
 
-export default connect(mapStateToProps)(QuestionPage) 
+export default withRouter(connect(mapStateToProps)(QuestionPage) )

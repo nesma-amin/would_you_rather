@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { unsetAuthedUser } from '../actions/authedUser'
+import { withRouter } from 'react-router-dom'
 
 class Logout extends Component {
   componentWillMount () {
@@ -12,4 +13,4 @@ class Logout extends Component {
   }
 }
 
-export default connect()(Logout)
+export default withRouter(connect()(Logout))

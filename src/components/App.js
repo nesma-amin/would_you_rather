@@ -13,6 +13,7 @@ import LeaderBoard from './LeaderBoard'
 import Login from './Login'
 import NotFound from './NotFound'
 import LogOut from './LogOut'
+import { withRouter } from 'react-router-dom'
 
 
 
@@ -42,7 +43,7 @@ class App extends Component {
                       <Route path='/leaderBoard' component={LeaderBoard} />
                       <Route path='/logIn' component={Login} />
                       <Route path='/logIn' component={LogOut} />
-                      <Route path='/notFound'  component={NotFound} />
+                      
                       </Fragment>
                 }
                 {/* <Route path='/notFound'  component={NotFound} /> */}
@@ -58,5 +59,4 @@ function mapStateToProps( {authedUser} ){
       loading: authedUser === null 
   };
 }
-export default connect(mapStateToProps)(App)
-// export default App
+export default withRouter(connect(mapStateToProps)(App))

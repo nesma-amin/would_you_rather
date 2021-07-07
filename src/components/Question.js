@@ -10,32 +10,17 @@ class Question extends Component{
 }
     
       render() {
-        const { question, users,authedUser,userIds } = this.props
-        const { author, timestamp,optionOne ,optionTwo , id, } = question
+        const { question, users,authedUser } = this.props
+        const { author, timestamp,optionOne ,optionTwo  } = question
         const page=((this.props.question.optionOne.votes.includes(authedUser))||
         (this.props.question.optionTwo.votes.includes(authedUser)))?
         `/answeredQuestion/${question.id}`:
         `/unansweredQuestion/${question.id}`;
-        console.log(" user",users)
-        console.log(" authedUser",authedUser)
-        console.log(" this.props.question.optionOne.votes",this.props.question.optionOne.votes)
-        console.log(" this.props.question.optionTwo.votes",this.props.question.optionTwo.votes)
-
-        console.log(" this.props.question.optionOne.votes.includes(authedUser)",
-        this.props.question.optionOne.votes.includes(authedUser))
-        console.log(" this.props.question.optionTwo.votes.includes(authedUser)",
-        this.props.question.optionTwo.votes.includes(authedUser))
-
-        console.log("********page", page)
-
-    console.log("Question Props", question)
+        
         if (question === null) {
           return <p>This Question doesn't existd</p>
         }
-       
-       
-        //this variable to filter the answered and unanswered questions
-        console.log("author")
+              
         const avatar = users[author].avatarURL
         return (
             <Link to={page} className='question'>
@@ -65,14 +50,7 @@ class Question extends Component{
     }
     
     function mapStateToProps ( {authedUser,questions,users},{id}) {
-      console.log("id",id)
-
-      const question =id? questions[id]:null
-      console.log("question",question)
-      // const temp_authedUser = 'sarahedo'
-    console.log("questions.optionOneText",question.optionOne.text)
-    console.log("questions.optionTwoText",question.optionTwo.text)
-    console.log("users[question.author.name]",question.author)
+      // const question =id? questions[id]:null
       return {
         authedUser:authedUser[0],
         userIds: Object.keys(users) ,
@@ -84,4 +62,3 @@ class Question extends Component{
       }
       
       export default withRouter(connect(mapStateToProps)(Question)) 
-    //export default Question

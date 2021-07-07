@@ -7,8 +7,6 @@ class Leader extends Component{
   
       render() {
         const { user, id } = this.props      
-        console.log("id", id)
-        console.log("user", user)
         const avatar = user.avatarURL
         const score=(user.questions.length)+(Object.keys(user.answers).length)
         const styles = {
@@ -47,4 +45,4 @@ class Leader extends Component{
           }
         }
       
-      export default connect(mapStateToProps)(Leader)
+      export default withRouter(connect(mapStateToProps)(Leader))

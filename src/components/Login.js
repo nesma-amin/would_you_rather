@@ -1,22 +1,18 @@
-// import { DropDownList } from "@progress/kendo-react-dropdowns";
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Dropdown from 'react-dropdown';
-import Select from 'react-select'
 import 'react-dropdown/style.css';
 import { Redirect } from 'react-router-dom'
 import {setAuthedUser} from '../actions/authedUser'
+import { withRouter } from 'react-router-dom'
 
-class AuthedUser extends Component {
+class LogIn extends Component {
     state = {
         selectedUser:{},
         toHome: false,
     
       }
       handleAuthedUserSelect=(e)=> {
-        // e.preventDefault()
-        console.log("e.value", e.value)
-
                 this.setState(() => ({
                   selectedUser: e.value,
                     }));
@@ -34,8 +30,7 @@ class AuthedUser extends Component {
         render() {
 
           const { userIds } = this.props
-          console.log("userIds", userIds)
-        //   const defaultOption = userIds[0];
+
         if (this.state.toHome === true) {
             return <Redirect to='/' />
           }
@@ -48,7 +43,6 @@ class AuthedUser extends Component {
 
          };
           return (
-            //<Link to={this.state.page} className='question'>
                <div className='center' style={styles}>
                     <div>Welcome to would you rather game</div>
                     <div >
@@ -84,7 +78,7 @@ class AuthedUser extends Component {
           }
         }
         
-      export default connect(mapStateToProps)(AuthedUser)
+      export default withRouter(connect(mapStateToProps)(LogIn))
   
 
 

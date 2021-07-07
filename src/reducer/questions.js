@@ -7,7 +7,6 @@ export default function questions(state={}, action){
                 ...state,
                 ...action.questions
             }
-            break;
         case ANSWER_QUESTION :
                const { authedUser, id, answer, } = action;
 
@@ -19,23 +18,14 @@ export default function questions(state={}, action){
             ...state[id][answer],
             votes: state[id][answer].votes.concat([authedUser])
           }
-        },
-
-       
-
-    
-    
+        },    
     
     }
-    break;
     case ADD_QUESTION :
-      const { question } = action
-
   return {
     ...state,
     [action.question.id]: action.question
     }
-break;
         default:
             return state
     }

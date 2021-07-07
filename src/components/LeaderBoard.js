@@ -6,10 +6,7 @@ import { Link, withRouter } from 'react-router-dom'
 class LeaderBoard extends Component{
  
       render() {
-        const { users,usersIds } = this.props
-        
-         console.log("Leaderboard users", users)
-         console.log("Leaderboard usersIds", usersIds)
+        const { users } = this.props
 
         if (users === null) {
           return <p>No users exist</p>
@@ -23,7 +20,7 @@ class LeaderBoard extends Component{
                     {this.props.usersIds.map((id)=>(
                         <li key ={id}>
                             <Leader id={id}/> 
-                            </li>
+                        </li>
                     ))}
                 </ul>
                 </div>
@@ -34,9 +31,13 @@ class LeaderBoard extends Component{
     
     function mapStateToProps ( {users}) {
       console.log("users", users)
+
       return {
         users,
+        // usersIds: Object.keys(users),
         usersIds: Object.keys(users) 
+        .sort((a,b)=>  ((users[b].questions.length)+(Object.keys(users[b].answers).length)) - 
+        ((users[a].questions.length)+(Object.keys(users[a].answers).length)))
         }
       }
       
